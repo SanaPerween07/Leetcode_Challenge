@@ -1,0 +1,25 @@
+class Solution {
+    public int maximumUniqueSubarray(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int maxSum = 0, currentSum = 0;
+        int left = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            int num = nums[right];
+            
+            if (map.containsKey(num)) {
+                int prevIndex = map.get(num);
+                while (left <= prevIndex) {
+                    currentSum -= nums[left];
+                    left++;
+                }
+            }
+            
+            currentSum += num;
+            map.put(num, right);  
+            maxSum = Math.max(maxSum, currentSum);
+        }
+
+        return maxSum;
+    }
+}
