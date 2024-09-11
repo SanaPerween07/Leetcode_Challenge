@@ -1,0 +1,17 @@
+public class Solution {
+    public int minBitFlips(int start, int goal) {
+        // XOR the two numbers and count the number of 1's in the result
+        int xorResult = start ^ goal;
+        return Integer.bitCount(xorResult);
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        int start1 = 10, goal1 = 7;
+        int start2 = 3, goal2 = 4;
+
+        System.out.println(solution.minBitFlips(start1, goal1));  // Output: 3
+        System.out.println(solution.minBitFlips(start2, goal2));  // Output: 3
+    }
+}
