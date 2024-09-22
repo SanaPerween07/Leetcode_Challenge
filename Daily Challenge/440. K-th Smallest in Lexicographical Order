@@ -1,0 +1,34 @@
+class Solution {
+    public int findKthNumber(int n, int k) {
+        int curr = 1; // Start at the smallest number (1)
+        k--; // Since we're already at the first number, we decrement k
+        
+        while (k > 0) {
+            int steps = countSteps(n, curr, curr + 1);
+            
+            if (steps <= k) {
+                // We can skip this whole subtree
+                curr += 1;  // Move to the next number
+                k -= steps; // Decrease k by the number of skipped steps
+            } else {
+                // We need to go deeper into the current subtree
+                curr *= 10; // Move to the next level (e.g., from 1 -> 10)
+                k--;        // Decrease k since we're visiting the next number in lexicographical order
+            }
+        }
+        
+        return curr;
+    }
+    
+    // Function to calculate how many numbers are between prefix 'curr' and 'next' under the limit 'n'
+    private int countSteps(int n, long curr, long next) {
+        int steps = 0;
+        while (curr <= n) {
+            // Number of nodes between [curr, next)
+            steps += Math.min(n + 1, next) - curr;
+            curr *= 10;
+            next *= 10;
+        }
+        return steps;
+    }
+}
